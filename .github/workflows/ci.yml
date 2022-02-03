@@ -5,35 +5,24 @@ jobs:
   tests:
     strategy:
       matrix:
+        ruby-version: [ '2.6', '2.7', '3.0', '3.1' ]
+        gemfile:
+          - gemfiles/rails-5.2.gemfile
+          - gemfiles/rails-6.0.gemfile
+          - gemfiles/rails-6.1.gemfile
+          - gemfiles/rails-7.0.gemfile
+        exclude:
+          - ruby: '3.1'
+            gemfile: rails_5_2
+          - ruby: '3.0'
+            gemfile: rails_5_2
+          # rails 7.x requires ruby >= 2.7.0
+          - ruby: '2.6'
+            gemfile: rails_7_0
         include:
-          - ruby-version: 1.9.3
-            gemfile: gemfiles/rails-3.0.gemfile
-          - ruby-version: 1.9.3
-            gemfile: gemfiles/rails-3.1.gemfile
-          - ruby-version: 1.9.3
-            gemfile: gemfiles/rails-3.2.gemfile
-          # rails 4.x requires ruby >= 1.9.3
-          - ruby-version: 1.9.3
-            gemfile: gemfiles/rails-4.0.gemfile
-          - ruby-version: 1.9.3
-            gemfile: gemfiles/rails-4.1.gemfile
-          - ruby-version: 1.9.3
-            gemfile: gemfiles/rails-4.2.gemfile
-          # rails 5.x requires ruby >= 2.2.2
-          - ruby-version: 2.2
-            gemfile: gemfiles/rails-5.0.gemfile
-          - ruby-version: 2.2
-            gemfile: gemfiles/rails-5.1.gemfile
-          - ruby-version: 2.2
-            gemfile: gemfiles/rails-5.2.gemfile
-          # rails 6.x requires ruby >= 2.5.0
-          - ruby-version: 2.5
-            gemfile: gemfiles/rails-6.0.gemfile
-          - ruby-version: 2.6
-            gemfile: gemfiles/rails-6.0.gemfile
           # test latest rails and ruby
-          - ruby-version: 2.7
-            gemfile: gemfiles/rails-6.0.gemfile
+          - ruby-version: ruby-head
+            gemfile: gemfiles/rails-main.gemfile
 
     runs-on: ubuntu-latest
 
